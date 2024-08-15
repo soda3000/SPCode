@@ -619,11 +619,21 @@ namespace SPCode.UI
         {
             try
             {
+                // Get the currently highlighted text
+                var selection = GetCurrentEditorElement().editor.TextArea.Selection.GetText();
+                // Create the Search Definition window
                 var spDefinitionWindow = new SPDefinitionWindow
                 {
                     Owner = this,
-                    ShowInTaskbar = false
+                    ShowInTaskbar = false            
                 };
+
+                // Set the search box text if there is a selection
+                if (!string.IsNullOrEmpty(selection)) 
+                {
+                    spDefinitionWindow.SPSearchBox.Text = selection;
+                }
+
                 DimmMainWindow();
                 spDefinitionWindow.ShowDialog();
                 RestoreMainWindow();
